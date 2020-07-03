@@ -132,6 +132,27 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
   </div>
 </article>
 
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/2016/01/mot-so-annotation-trong-spring/">Một số annotation trong Spring Framework</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2016-01-26 </span>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Dưới đây là một số annotation trong Spring Framework cần biết:
+Spring Core @Autowired: Tự động liên kết các bean được sử dụng trong các class với các bean được Spring Container sinh ra và quản lý.
+1 2 3 4 5 6 7 8 9 10 11 12  // @org.springframework.beans.factory.annotation.Autowired @Service public class BookServiceImpl implements BookService { @Autowired private BookDao bookDao; @Autowired private CustomerDao customerDao; ... }   @Scope: mặc định trong Spring, hầu hết scope phổ biến cho các autodetected components là singleton (singleton: Với mỗi bean, Spring IoC Container chỉ tạo duy nhất một đối tượng), để thay đổi phạm vi ta sử dụng @Scope annotation).
+    </div>
+    <div class="read-more">
+      <a href="/post/2016/01/mot-so-annotation-trong-spring/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
     </section>
   
   <nav class="pagination">

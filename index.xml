@@ -21,5 +21,16 @@
 Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của pointcut và advice trong lập trình hướng khía cạnh.</description>
     </item>
     
+    <item>
+      <title>Một số annotation trong Spring Framework</title>
+      <link>https://dodangquan.github.io/post/2016/01/mot-so-annotation-trong-spring/</link>
+      <pubDate>Tue, 26 Jan 2016 17:27:40 +0700</pubDate>
+      
+      <guid>https://dodangquan.github.io/post/2016/01/mot-so-annotation-trong-spring/</guid>
+      <description>Dưới đây là một số annotation trong Spring Framework cần biết:
+Spring Core @Autowired: Tự động liên kết các bean được sử dụng trong các class với các bean được Spring Container sinh ra và quản lý.
+1 2 3 4 5 6 7 8 9 10 11 12  // @org.springframework.beans.factory.annotation.Autowired @Service public class BookServiceImpl implements BookService { @Autowired private BookDao bookDao; @Autowired private CustomerDao customerDao; ... }   @Scope: mặc định trong Spring, hầu hết scope phổ biến cho các autodetected components là singleton (singleton: Với mỗi bean, Spring IoC Container chỉ tạo duy nhất một đối tượng), để thay đổi phạm vi ta sử dụng @Scope annotation).</description>
+    </item>
+    
   </channel>
 </rss>

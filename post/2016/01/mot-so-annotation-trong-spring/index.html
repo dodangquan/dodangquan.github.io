@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Một số annotation trong Spring Framework - Do Dang Quan</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="dodangquan" /><meta name="description" content="Dưới đây là một số annotation trong Spring Framework cần biết:
+Spring Core @Autowired: Tự động liên kết các bean được sử dụng trong các class với các bean được Spring Container sinh ra và quản lý.
+1 2 3 4 5 6 7 8 9 10 11 12  // @org.springframework.beans.factory.annotation.Autowired @Service public class BookServiceImpl implements BookService { @Autowired private BookDao bookDao; @Autowired private CustomerDao customerDao; ... }   @Scope: mặc định trong Spring, hầu hết scope phổ biến cho các autodetected components là singleton (singleton: Với mỗi bean, Spring IoC Container chỉ tạo duy nhất một đối tượng), để thay đổi phạm vi ta sử dụng @Scope annotation)." /><meta name="keywords" content="dodangquan, Do Dang Quan, java, golang" />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.73.0 with theme even" />
+
+
+<link rel="canonical" href="https://dodangquan.github.io/post/2016/01/mot-so-annotation-trong-spring/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.2d8c555b844cbfa0081a5e83825ef97f9fc92cb514021af36ffc326bc63fcb34.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Một số annotation trong Spring Framework" />
+<meta property="og:description" content="Dưới đây là một số annotation trong Spring Framework cần biết:
+Spring Core @Autowired: Tự động liên kết các bean được sử dụng trong các class với các bean được Spring Container sinh ra và quản lý.
+1 2 3 4 5 6 7 8 9 10 11 12  // @org.springframework.beans.factory.annotation.Autowired @Service public class BookServiceImpl implements BookService { @Autowired private BookDao bookDao; @Autowired private CustomerDao customerDao; ... }   @Scope: mặc định trong Spring, hầu hết scope phổ biến cho các autodetected components là singleton (singleton: Với mỗi bean, Spring IoC Container chỉ tạo duy nhất một đối tượng), để thay đổi phạm vi ta sử dụng @Scope annotation)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dodangquan.github.io/post/2016/01/mot-so-annotation-trong-spring/" />
+<meta property="article:published_time" content="2016-01-26T17:27:40+07:00" />
+<meta property="article:modified_time" content="2016-01-26T17:27:40+07:00" />
+<meta itemprop="name" content="Một số annotation trong Spring Framework">
+<meta itemprop="description" content="Dưới đây là một số annotation trong Spring Framework cần biết:
+Spring Core @Autowired: Tự động liên kết các bean được sử dụng trong các class với các bean được Spring Container sinh ra và quản lý.
+1 2 3 4 5 6 7 8 9 10 11 12  // @org.springframework.beans.factory.annotation.Autowired @Service public class BookServiceImpl implements BookService { @Autowired private BookDao bookDao; @Autowired private CustomerDao customerDao; ... }   @Scope: mặc định trong Spring, hầu hết scope phổ biến cho các autodetected components là singleton (singleton: Với mỗi bean, Spring IoC Container chỉ tạo duy nhất một đối tượng), để thay đổi phạm vi ta sử dụng @Scope annotation).">
+<meta itemprop="datePublished" content="2016-01-26T17:27:40&#43;07:00" />
+<meta itemprop="dateModified" content="2016-01-26T17:27:40&#43;07:00" />
+<meta itemprop="wordCount" content="528">
+
+
+
+<meta itemprop="keywords" content="java,spring," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Một số annotation trong Spring Framework"/>
+<meta name="twitter:description" content="Dưới đây là một số annotation trong Spring Framework cần biết:
+Spring Core @Autowired: Tự động liên kết các bean được sử dụng trong các class với các bean được Spring Container sinh ra và quản lý.
+1 2 3 4 5 6 7 8 9 10 11 12  // @org.springframework.beans.factory.annotation.Autowired @Service public class BookServiceImpl implements BookService { @Autowired private BookDao bookDao; @Autowired private CustomerDao customerDao; ... }   @Scope: mặc định trong Spring, hầu hết scope phổ biến cho các autodetected components là singleton (singleton: Với mỗi bean, Spring IoC Container chỉ tạo duy nhất một đối tượng), để thay đổi phạm vi ta sử dụng @Scope annotation)."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Programming</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Programming</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Một số annotation trong Spring Framework</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-01-26 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#spring-core">Spring Core</a></li>
+        <li><a href="#stereotyping-annotations">Stereotyping Annotations</a></li>
+        <li><a href="#transaction-annotations">Transaction Annotations</a></li>
+        <li><a href="#spring-mvc-annotation">Spring MVC Annotation</a></li>
+        <li><a href="#spring-security-annotation">Spring Security Annotation</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Dưới đây là một số <code>annotation</code> trong Spring Framework cần biết:</p>
+<h3 id="spring-core">Spring Core</h3>
+<p><code>@Autowired</code>: Tự động liên kết các <code>bean</code> được sử dụng trong các <code>class</code> với các <code>bean</code> được Spring Container sinh ra và quản lý.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// @org.springframework.beans.factory.annotation.Autowired
+</span><span class="c1"></span><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookServiceImpl</span> <span class="kd">implements</span> <span class="n">BookService</span> <span class="o">{</span>
+ 
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="n">BookDao</span> <span class="n">bookDao</span><span class="o">;</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="n">CustomerDao</span> <span class="n">customerDao</span><span class="o">;</span>
+   
+  <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>@Scope</code>: mặc định trong <!-- raw HTML omitted -->Spring<!-- raw HTML omitted -->, hầu hết <code>scope</code> phổ biến cho các <code>autodetected components</code> là <code>singleton</code> (<code>singleton</code>: Với mỗi <code>bean</code>, <strong>Spring IoC Container</strong> chỉ tạo duy nhất một đối tượng), để thay đổi phạm vi ta sử dụng <code>@Scope annotation</code>).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// @org.springframework.context.annotation.Scope
+</span><span class="c1"></span><span class="nd">@Component</span>
+<span class="nd">@Scope</span><span class="o">(</span><span class="s">&#34;request&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ContactResource</span> <span class="o">{</span>
+<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="stereotyping-annotations">Stereotyping Annotations</h3>
+<p><code>@Component</code>: dùng để đánh dấu một class sẽ được tạo <code>bean</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// @org.springframework.stereotype.Component
+</span><span class="c1"></span><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ContactResource</span> <span class="o">{</span>
+<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>@Repository</code>: dùng để đánh dấu các lớp <code>Repository</code> hoặc <code>Dao</code> của Spring. Mọi truy cập dữ liệu logic tới cơ sở dữ liệu sẽ đặt trong các lớp này.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// @org.springframework.stereotype.Repository
+</span><span class="c1"></span><span class="nd">@Repository</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookDaoImpl</span> <span class="kd">implements</span> <span class="n">BookDao</span> <span class="o">{</span>
+<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>@Service</code>: dùng để đánh dấu các lớp <code>Service</code>. Tất cả xử lý nghiệp vụ logic sẽ đặt trong các lớp <code>Service</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// @org.springframework.stereotype.Service
+</span><span class="c1"></span><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookServiceImpl</span> <span class="kd">implements</span> <span class="n">BookService</span> <span class="o">{</span>
+<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="transaction-annotations">Transaction Annotations</h3>
+<p><code>@Transactional</code>: dùng để đánh dấu các <code>class</code> có sử dụng đến <code>transaction</code>, các <code>transaction</code> này sẽ được trao cho Spring quản lý.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// @org.springframework.transaction.annotation.Transactional
+</span><span class="c1"></span><span class="nd">@Service</span>
+<span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookServiceImpl</span> <span class="kd">implements</span> <span class="n">BookService</span> <span class="o">{</span>
+ 
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="n">BookDao</span> <span class="n">bookDao</span><span class="o">;</span>
+ 
+  <span class="nd">@Transactional</span>
+  <span class="kd">public</span> <span class="n">Book</span> <span class="nf">findByName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+ 
+    <span class="n">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="n">bookDao</span><span class="o">.</span><span class="na">findByName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">book</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="spring-mvc-annotation">Spring MVC Annotation</h3>
+<p><code>@Controller</code>: dùng để đánh dấu lớp <code>Controller</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// @org.springframework.stereotype.Controller
+</span><span class="c1"></span><span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoginController</span> <span class="o">{</span>
+<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>@RequestMapping</code>: dùng để ánh xạ tới các <code>URL</code> lên toàn bộ một <code>class</code> hay một phương thức xử lý riêng. Thông thường dùng để ánh xạ một <code>request path</code> (hoặc <code>path pattern</code>)
+tới một <code>controller</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// @org.springframework.web.bind.annotation.RequestMapping
+</span><span class="c1"></span><span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/login&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoginController</span> <span class="o">{</span>
+ 
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="n">UserService</span> <span class="n">userService</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>@RequestParam</code>: dùng để gán một <code>request parameter</code> vào một <code>parameter</code> của phương thức.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// @org.springframework.web.bind.annotation.RequestParam
+</span><span class="c1"></span><span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/user&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoginController</span> <span class="o">{</span>
+ 
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/login&#34;</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">listCompanies</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span> <span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">username</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;admin&#34;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">password</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;mypass&#34;</span><span class="o">)){</span>
+       <span class="k">return</span> <span class="s">&#34;welcome&#34;</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="s">&#34;login?login=fail&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>@InitBinder</code>: dùng để đánh dấu một phương thức có tùy biến các ràng buộc dữ liệu.</p>
+<p><code>@SessionAttribute</code>: Chỉ định một <code>modelAttribute</code> sẽ được lưu trong <code>session</code>.</p>
+<h3 id="spring-security-annotation">Spring Security Annotation</h3>
+<p><code>@PreAuthorize</code>: được dùng để cho phép hoặc từ chối sử dụng một phương thức. Trong ví dụ dưới đây, chỉ những đối tượng <code>user</code> có quyền <code>Admin</code> mới có thể xóa được một đối tượng <code>contact</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// @org.springframework.security.access.prepost.PreAuthorize
+</span><span class="c1"></span><span class="nd">@Transactional</span>
+<span class="nd">@PreAuthorize</span><span class="o">(</span><span class="s">&#34;hasRole(&#39;ROLE_ADMIN&#39;)&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeContact</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">contactDao</span><span class="o">.</span><span class="na">removeContact</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">dodangquan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2016-01-26
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">java</a>
+          <a href="/tags/spring/">spring</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2017/09/customize-spring-aop-annotation/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Thực hiện tùy biến Spring AOP Annotation</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:dangquanzt@gmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://dodangquan.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">dodangquan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
