@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Thực hiện tùy biến Spring AOP Annotation - Even - A super concise theme for Hugo</title>
+  <title>Thực hiện tùy biến Spring AOP Annotation - Do Dang Quan</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="dodangquan" /><meta name="description" content="1. Annotation AOP là gì? Giới thiệu nhanh thì AOP là viết tắt của lập trình hướng khía cạnh (Aspect Oriented Programming), đây là kĩ thuật chèn thêm hành vi vào đoạn code đã tồn tại mà không cần phải sửa code trực tiếp.
-Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của pointcut và advice trong lập trình hướng khía cạnh." /><meta name="keywords" content="Hugo, theme, even" />
+Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của pointcut và advice trong lập trình hướng khía cạnh." /><meta name="keywords" content="dodangquan, Do Dang Quan, java, golang" />
 
 
 
@@ -27,7 +27,7 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
 <meta name="generator" content="Hugo 0.73.0 with theme even" />
 
 
-<link rel="canonical" href="http://localhost:1313/post/2017/09/customize-spring-aop-annotation/" />
+<link rel="canonical" href="https://dodangquan.github.io/post/2017/09/customize-spring-aop-annotation/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -36,7 +36,7 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
 
 
 
-<link href="/sass/main.min.8b6b94ecae43311a95c5ca1f1d6da08d635dcc3ff29310b6790f2f357eca5686.css" rel="stylesheet">
+<link href="/sass/main.min.2d8c555b844cbfa0081a5e83825ef97f9fc92cb514021af36ffc326bc63fcb34.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -44,19 +44,19 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
 <meta property="og:description" content="1. Annotation AOP là gì? Giới thiệu nhanh thì AOP là viết tắt của lập trình hướng khía cạnh (Aspect Oriented Programming), đây là kĩ thuật chèn thêm hành vi vào đoạn code đã tồn tại mà không cần phải sửa code trực tiếp.
 Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của pointcut và advice trong lập trình hướng khía cạnh." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/post/2017/09/customize-spring-aop-annotation/" />
-<meta property="article:published_time" content="2019-09-03T10:51:45+07:00" />
-<meta property="article:modified_time" content="2019-09-03T10:51:45+07:00" />
+<meta property="og:url" content="https://dodangquan.github.io/post/2017/09/customize-spring-aop-annotation/" />
+<meta property="article:published_time" content="2019-09-26T10:51:45+07:00" />
+<meta property="article:modified_time" content="2019-09-26T10:51:45+07:00" />
 <meta itemprop="name" content="Thực hiện tùy biến Spring AOP Annotation">
 <meta itemprop="description" content="1. Annotation AOP là gì? Giới thiệu nhanh thì AOP là viết tắt của lập trình hướng khía cạnh (Aspect Oriented Programming), đây là kĩ thuật chèn thêm hành vi vào đoạn code đã tồn tại mà không cần phải sửa code trực tiếp.
 Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của pointcut và advice trong lập trình hướng khía cạnh.">
-<meta itemprop="datePublished" content="2019-09-03T10:51:45&#43;07:00" />
-<meta itemprop="dateModified" content="2019-09-03T10:51:45&#43;07:00" />
+<meta itemprop="datePublished" content="2019-09-26T10:51:45&#43;07:00" />
+<meta itemprop="dateModified" content="2019-09-26T10:51:45&#43;07:00" />
 <meta itemprop="wordCount" content="1236">
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="java,spring,aop," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Thực hiện tùy biến Spring AOP Annotation"/>
 <meta name="twitter:description" content="1. Annotation AOP là gì? Giới thiệu nhanh thì AOP là viết tắt của lập trình hướng khía cạnh (Aspect Oriented Programming), đây là kĩ thuật chèn thêm hành vi vào đoạn code đã tồn tại mà không cần phải sửa code trực tiếp.
 Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của pointcut và advice trong lập trình hướng khía cạnh."/>
@@ -74,7 +74,7 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">dodangquan&#39;s blog</a>
+    <a href="/" class="logo">Programming</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -98,7 +98,7 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">dodangquan&#39;s blog</a>
+  <a href="/" class="logo">Programming</a>
 </div>
 
 <nav class="site-navbar">
@@ -125,7 +125,7 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
       <h1 class="post-title">Thực hiện tùy biến Spring AOP Annotation</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2019-09-03 </span>
+        <span class="post-time"> 2019-09-26 </span>
         
         
       </div>
@@ -260,7 +260,7 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
 </div><p>Về mặt kĩ thuật, điều này sẽ không thay đổi hành vi của bất cứ điều gì, nhưng vẫn còn rất nhiều điều đang cần phân tích.</p>
 <p>Đầu tiên, ta đánh dấu phương thức bằng annotation <code>@Around</code>. Đây là <strong>advice</strong> của chúng ta, và <strong>around advice</strong> nghĩa là chúng ta đang thêm code bổ sung trước và sau khi thực thi phương thức. Cũng có một số loại <strong>advice</strong> khác, ví dụ như <em><strong>before</strong></em>, <em><strong>after</strong></em> nhưng trong phạm vi bài viết này, ta sẽ không sử dụng đến chúng.</p>
 <p>Tiếp theo, hãy chú ý đến annotation <code>@Around</code> của chúng ta có một đối số <em>point cut</em>. <strong>Pointcut</strong> của chúng ta nói rằng: <em>&lsquo;Áp dụng advice này lên bất kì phương thức nào được đánh dấu với annotation @LogExecutionTime.'</em>. Cũng có rất nhiều loại <strong>pointcut</strong> khác nữa, nhưng một lần nữa chúng ta sẽ không đề cập đến chúng trong phạm vi bài viết này.</p>
-<p>Chính phương thức <em>logExecutionTime()</em> sẽ là một <strong>advice</strong>, phương thức này có một đối số là <code>ProceedingJoinPoint</code>. Trong trường hợp của chúng ta, thì đây sẽ là một phương thức thực thi mà đã được đánh dấu bằng annotation <code>@LogExecutionTime</code>.</p>
+<p>Chính phương thức <em>logExecutionTime()</em> sẽ là một <em>advice</em>, phương thức này có một đối số là <code>ProceedingJoinPoint</code>. Trong trường hợp của chúng ta, thì đây sẽ là một phương thức thực thi mà đã được đánh dấu bằng annotation <code>@LogExecutionTime</code>.</p>
 <p>Cuối cùng, bất cứ khi nào một phương thức đã được đánh dấu được gọi đến, thì <strong>advice</strong> của chúng ta sẽ được gọi đầu tiên. Sau đó, tùy thuộc vào <strong>advice</strong> của chúng ta quyết định làm gì tiếp theo. Trong trường hợp này, <strong>advice</strong> của chúng ta không làm gì khác ngoài việc gọi đến phương thức <code>proceed()</code>, điều này sẽ chỉ gọi đến phướng thức gốc đã được đánh dấu.</p>
 <h2 id="6-log-thời-gian-thực-thi">6. Log thời gian thực thi</h2>
 <p>Bây giờ chúng ta đã có một bộ khung, tất cả những gì chúng ta cần làm là thêm một vài logic vào trong <strong>advice</strong>. Chúng ta sẽ ghi lại thời gian thực thi của phương thức ban đầu.</p>
@@ -314,7 +314,7 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">void org.baeldung.Service.serve<span class="o">()</span> executed in 2030ms
+<pre class="chroma"><code class="language-bash" data-lang="bash">void vn.dodangquan.Service.serve<span class="o">()</span> executed in 2019ms
 </code></pre></td></tr></table>
 </div>
 </div>
@@ -328,7 +328,7 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2019-09-03
+        2019-09-26
         
     </span>
   </p>
@@ -336,7 +336,11 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
   
 </div>
 <footer class="post-footer">
-      
+      <div class="post-tags">
+          <a href="/tags/java/">java</a>
+          <a href="/tags/spring/">spring</a>
+          <a href="/tags/aop/">aop</a>
+          </div>
       <nav class="post-nav">
         
         
@@ -355,33 +359,16 @@ Bài viết giả định bạn đọc đã có những kiến thức cơ bản 
 
     <footer id="footer" class="footer">
       <div class="social-links">
-      <a href="mailto:dodangquan@outlook.com" class="iconfont icon-email" title="email"></a>
-      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
-      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
-      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
-      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
-      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
-      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
-      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
-  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+      <a href="mailto:dangquanzt@gmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://dodangquan.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
   
 
   <span class="copyright-year">
     &copy; 
+    2016 - 
     2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>

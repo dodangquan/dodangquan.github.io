@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Even - A super concise theme for Hugo</title>
-    <link>http://localhost:1313/post/</link>
-    <description>Recent content in Posts on Even - A super concise theme for Hugo</description>
+    <title>Posts on Do Dang Quan</title>
+    <link>https://dodangquan.github.io/post/</link>
+    <description>Recent content in Posts on Do Dang Quan</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Tue, 03 Sep 2019 10:51:45 +0700</lastBuildDate>
+    <language>vi</language>
+    <lastBuildDate>Thu, 26 Sep 2019 10:51:45 +0700</lastBuildDate>
     
-	<atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://dodangquan.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Thực hiện tùy biến Spring AOP Annotation</title>
-      <link>http://localhost:1313/post/2017/09/customize-spring-aop-annotation/</link>
-      <pubDate>Tue, 03 Sep 2019 10:51:45 +0700</pubDate>
+      <link>https://dodangquan.github.io/post/2017/09/customize-spring-aop-annotation/</link>
+      <pubDate>Thu, 26 Sep 2019 10:51:45 +0700</pubDate>
       
-      <guid>http://localhost:1313/post/2017/09/customize-spring-aop-annotation/</guid>
+      <guid>https://dodangquan.github.io/post/2017/09/customize-spring-aop-annotation/</guid>
       <description>1. Annotation AOP là gì? Giới thiệu nhanh thì AOP là viết tắt của lập trình hướng khía cạnh (Aspect Oriented Programming), đây là kĩ thuật chèn thêm hành vi vào đoạn code đã tồn tại mà không cần phải sửa code trực tiếp.
 Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của pointcut và advice trong lập trình hướng khía cạnh.</description>
     </item>
