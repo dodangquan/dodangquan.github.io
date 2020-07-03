@@ -51,6 +51,34 @@
   </url>
   
   <url>
+    <loc>https://dodangquan.github.io/post/2016/04/enable-icons-menu-linux/</loc>
+    <lastmod>2016-04-02T22:53:38+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://dodangquan.github.io/tags/fedora/</loc>
+    <lastmod>2016-04-02T22:53:38+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://dodangquan.github.io/tags/linux/</loc>
+    <lastmod>2016-04-02T22:53:38+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://dodangquan.github.io/tags/ubuntu/</loc>
+    <lastmod>2016-04-02T22:53:38+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://dodangquan.github.io/post/2016/01/mot-so-annotation-trong-spring/</loc>
     <lastmod>2016-01-26T17:27:40+07:00</lastmod>
     <changefreq>weekly</changefreq>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ubuntu on Đỗ Đăng Quân</title>
+    <link>https://dodangquan.github.io/tags/ubuntu/</link>
+    <description>Recent content in ubuntu on Đỗ Đăng Quân</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>vi</language>
+    <lastBuildDate>Sat, 02 Apr 2016 22:53:38 +0700</lastBuildDate>
+    
+	<atom:link href="https://dodangquan.github.io/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Enable Icons Menus Trong Hệ Điều Hành Linux</title>
+      <link>https://dodangquan.github.io/post/2016/04/enable-icons-menu-linux/</link>
+      <pubDate>Sat, 02 Apr 2016 22:53:38 +0700</pubDate>
+      
+      <guid>https://dodangquan.github.io/post/2016/04/enable-icons-menu-linux/</guid>
+      <description>Mặc định trong Ubuntu và Fedora icon menu sẽ bị tắt đi. Dưới đây là cách bật icon menu trên 2 distro Linux là Ubuntu và Fedora: Để bật chế độ menu có icon, cần thực hiện lệnh sau:
+1 2  #!/bin/bash ~$ gsettings set org.gnome.desktop.interface menus-have-icons true   hoặc:
+1  ~$ gsettings set org.gnome.settings-daemon.plugins.xsettings overrides &amp;#34;{&amp;#39;Gtk/ButtonImages&amp;#39;: &amp;lt;1&amp;gt;, &amp;#39;Gtk/MenuImages&amp;#39;: &amp;lt;1&amp;gt;}&amp;#34;   </description>
+    </item>
+    
+  </channel>
+</rss>
