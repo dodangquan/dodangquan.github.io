@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Thực hiện tùy biến Spring AOP Annotation - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="dodangquan" /><meta name="description" content="1. Annotation AOP là gì? Giới thiệu nhanh thì AOP là viết tắt của lập trình hướng khía cạnh (Aspect Oriented Programming), đây là kĩ thuật chèn thêm hành vi vào đoạn code đã tồn tại mà không cần phải sửa code trực tiếp.
+Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của pointcut và advice trong lập trình hướng khía cạnh." /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.73.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/2017/09/customize-spring-aop-annotation/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.8b6b94ecae43311a95c5ca1f1d6da08d635dcc3ff29310b6790f2f357eca5686.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Thực hiện tùy biến Spring AOP Annotation" />
+<meta property="og:description" content="1. Annotation AOP là gì? Giới thiệu nhanh thì AOP là viết tắt của lập trình hướng khía cạnh (Aspect Oriented Programming), đây là kĩ thuật chèn thêm hành vi vào đoạn code đã tồn tại mà không cần phải sửa code trực tiếp.
+Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của pointcut và advice trong lập trình hướng khía cạnh." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/2017/09/customize-spring-aop-annotation/" />
+<meta property="article:published_time" content="2019-09-03T10:51:45+07:00" />
+<meta property="article:modified_time" content="2019-09-03T10:51:45+07:00" />
+<meta itemprop="name" content="Thực hiện tùy biến Spring AOP Annotation">
+<meta itemprop="description" content="1. Annotation AOP là gì? Giới thiệu nhanh thì AOP là viết tắt của lập trình hướng khía cạnh (Aspect Oriented Programming), đây là kĩ thuật chèn thêm hành vi vào đoạn code đã tồn tại mà không cần phải sửa code trực tiếp.
+Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của pointcut và advice trong lập trình hướng khía cạnh.">
+<meta itemprop="datePublished" content="2019-09-03T10:51:45&#43;07:00" />
+<meta itemprop="dateModified" content="2019-09-03T10:51:45&#43;07:00" />
+<meta itemprop="wordCount" content="1236">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Thực hiện tùy biến Spring AOP Annotation"/>
+<meta name="twitter:description" content="1. Annotation AOP là gì? Giới thiệu nhanh thì AOP là viết tắt của lập trình hướng khía cạnh (Aspect Oriented Programming), đây là kĩ thuật chèn thêm hành vi vào đoạn code đã tồn tại mà không cần phải sửa code trực tiếp.
+Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của pointcut và advice trong lập trình hướng khía cạnh."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">dodangquan&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">dodangquan&#39;s blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Thực hiện tùy biến Spring AOP Annotation</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-09-03 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-annotation-aop-là-gì">1. Annotation AOP là gì?</a></li>
+    <li><a href="#2-maven-dependency">2. Maven Dependency</a></li>
+    <li><a href="#3-tạo-annotation-tùy-biến">3. Tạo annotation tùy biến</a></li>
+    <li><a href="#4-tạo-aspect">4. Tạo Aspect</a></li>
+    <li><a href="#5-tạo-pointcut-và-advice">5. Tạo Pointcut và Advice</a></li>
+    <li><a href="#6-log-thời-gian-thực-thi">6. Log thời gian thực thi</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="1-annotation-aop-là-gì">1. Annotation AOP là gì?</h2>
+<p>Giới thiệu nhanh thì AOP là viết tắt của lập trình hướng khía cạnh <em>(Aspect Oriented Programming)</em>, đây là kĩ thuật chèn thêm hành vi vào đoạn code đã tồn tại mà không cần phải sửa code trực tiếp.</p>
+<p>Bài viết giả định bạn đọc đã có những kiến thức cơ bản về lập trình hướng khía cạnh. Nếu bạn chưa có kiến thức về AOP, hãy tìm hiểu qua về khái niệm của <code>pointcut</code> và <code>advice</code> trong lập trình hướng khía cạnh.</p>
+<p>Loại AOP mà chúng ta sẽ thực hiện tùy biến trong bài viết này là <em>annotation driven</em>. Chắc hẳn mọi người đều cảm thấy rất quen thuộc nếu đã từng sử dụng qua Spring <code>@Transaction</code> annotaion.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Transaction</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">saveOrder</span><span class="o">(</span><span class="n">Order</span> <span class="n">order</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Gọi một loạt các thao tác với database trong transaction
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Điểm mấu chốt ở đây đó là không tác động trực tiếp vào code. Bằng cách sử dụng <strong>annotation</strong> meta-data, những logic nghiệp vụ cơ bản của ứng dụng của bạn sẽ không bị trộn lẫn với những đoạn code <strong>quản lí transaction</strong>. Việc này sẽ làm cho code của bạn dễ dàng được giải thích, tái cấu trúc và kiểm thử trong <strong>transaction isolation</strong>.</p>
+<p>Đôi khi, những lập trình viên phát triển các ứng dụng của hệ sinh thái Spring lại coi đây là điều <em>&ldquo;vi diệu&rdquo;</em> của Framework này, mà không suy nghĩ nhiều về cách thức hoạt động chi tiết của nó. Thực tế, những gì đang xảy ra không thực sự quá phức tạp. Một khi hoàn thành các bước của bài viết này, bạn sẽ có thể tự tạo ra các annotation tùy biến của riêng mình, hiểu được cách thức hoạt động và tận dụng các lợi ích của AOP mang lại.</p>
+<h2 id="2-maven-dependency">2. Maven Dependency</h2>
+<p>Đầu tiên, hãy thêm các <strong>Maven dependency</strong> cần thiết.</p>
+<p>Trong ví dụ này, chúng ta sẽ sử dụng Spring Boot, vì cách tiếp cận cấu hình của module này sẽ giúp chúng ta bắt đầu ví dụ một cách nhanh nhất có thể:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;parent&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.5.7.RELEASE<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/parent&gt;</span>
+ 
+<span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-aop<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Cần lưu ý là phải thêm AOP starter, nó sẽ kéo các thư viện mà ta cần để có thể triển khai AOP.</p>
+<h2 id="3-tạo-annotation-tùy-biến">3. Tạo annotation tùy biến</h2>
+<p>Annotation sau đây mà tôi sẽ tạo ra là một annotation được sử dụng với mục đinh log khoảng thời gian thực thi của một phương thức:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Target</span><span class="o">(</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">)</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">LogExecutionTime</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Mặc dù cách thực hiện khá là đơn giản, nhưng bạn hãy chú ý đến hai <strong>meta-annotation</strong> được sử dụng.</p>
+<p>Annotation <code>@Target</code> sẽ cho bạn biết nơi mà annotation tùy biến có thể áp dụng. Ở đây ta đang sử dụng <code>ElementType.Method</code>, điều này có nghĩa là annotation tùy biến sẽ chỉ làm việc trên các phương thức. Nếu bạn cố gắng thử sử dụng annotation đã tạo ra ở những nơi khác, thì đoạn code của chúng ta sẽ báo lỗi trong quá trình biên dịch.</p>
+<p>Và annotation <code>@Retention</code> sẽ chỉ rõ liệu annotation tùy biến của chúng ta có sẵn dùng trong quá trình <strong>runtime</strong> hay không. Mặc định điều này sẽ là không, vì vậy Spring AOP sẽ không thể nhận biết được annotation mà chúng ta đã tạo ra. Đó là lí do tại sao nó được cấu hình lại.</p>
+<h2 id="4-tạo-aspect">4. Tạo Aspect</h2>
+<p>Bây giờ, chúng ta đã có một annotation, hãy tạo thêm <strong>aspect</strong>. Đây chính là điều chúng ta cần quan tâm nhất, tất cả những gì chúng ta cần là một <code>class</code> được đánh dấu bởi <code>@Aspect</code> annotation:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Aspect</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleAspect</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Bạn cũng sẽ cần phải sử dụng đến annotation <code>@Component</code> vì class này cũng cần phải là một <code>spring bean</code> trong Spring container. Về cơ bản, thì đây là class mà ta sẽ thực hiện những logic mong muốn.</p>
+<h2 id="5-tạo-pointcut-và-advice">5. Tạo Pointcut và Advice</h2>
+<p>Bây giờ, hãy tạo ra các <strong>pointcut</strong> và <strong>advice</strong>. Đây sẽ là một phương thức chú thích được đặt bên trong class Aspect của chúng ta:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Around</span><span class="o">(</span><span class="s">&#34;@annotation(LogExecutionTime)&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">Object</span> <span class="nf">logExecutionTime</span><span class="o">(</span><span class="n">ProceedingJoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">proceed</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Về mặt kĩ thuật, điều này sẽ không thay đổi hành vi của bất cứ điều gì, nhưng vẫn còn rất nhiều điều đang cần phân tích.</p>
+<p>Đầu tiên, ta đánh dấu phương thức bằng annotation <code>@Around</code>. Đây là <strong>advice</strong> của chúng ta, và <strong>around advice</strong> nghĩa là chúng ta đang thêm code bổ sung trước và sau khi thực thi phương thức. Cũng có một số loại <strong>advice</strong> khác, ví dụ như <em><strong>before</strong></em>, <em><strong>after</strong></em> nhưng trong phạm vi bài viết này, ta sẽ không sử dụng đến chúng.</p>
+<p>Tiếp theo, hãy chú ý đến annotation <code>@Around</code> của chúng ta có một đối số <em>point cut</em>. <strong>Pointcut</strong> của chúng ta nói rằng: <em>&lsquo;Áp dụng advice này lên bất kì phương thức nào được đánh dấu với annotation @LogExecutionTime.'</em>. Cũng có rất nhiều loại <strong>pointcut</strong> khác nữa, nhưng một lần nữa chúng ta sẽ không đề cập đến chúng trong phạm vi bài viết này.</p>
+<p>Chính phương thức <em>logExecutionTime()</em> sẽ là một <strong>advice</strong>, phương thức này có một đối số là <code>ProceedingJoinPoint</code>. Trong trường hợp của chúng ta, thì đây sẽ là một phương thức thực thi mà đã được đánh dấu bằng annotation <code>@LogExecutionTime</code>.</p>
+<p>Cuối cùng, bất cứ khi nào một phương thức đã được đánh dấu được gọi đến, thì <strong>advice</strong> của chúng ta sẽ được gọi đầu tiên. Sau đó, tùy thuộc vào <strong>advice</strong> của chúng ta quyết định làm gì tiếp theo. Trong trường hợp này, <strong>advice</strong> của chúng ta không làm gì khác ngoài việc gọi đến phương thức <code>proceed()</code>, điều này sẽ chỉ gọi đến phướng thức gốc đã được đánh dấu.</p>
+<h2 id="6-log-thời-gian-thực-thi">6. Log thời gian thực thi</h2>
+<p>Bây giờ chúng ta đã có một bộ khung, tất cả những gì chúng ta cần làm là thêm một vài logic vào trong <strong>advice</strong>. Chúng ta sẽ ghi lại thời gian thực thi của phương thức ban đầu.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Around</span><span class="o">(</span><span class="s">&#34;@annotation(LogExecutionTime)&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">Object</span> <span class="nf">logExecutionTime</span><span class="o">(</span><span class="n">ProceedingJoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+    <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+ 
+    <span class="n">Object</span> <span class="n">proceed</span> <span class="o">=</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">proceed</span><span class="o">();</span>
+ 
+    <span class="kt">long</span> <span class="n">executionTime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">start</span><span class="o">;</span>
+ 
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34; executed in &#34;</span> <span class="o">+</span> <span class="n">executionTime</span> <span class="o">+</span> <span class="s">&#34;ms&#34;</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">proceed</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Một lần nữa, chúng ta không làm bất cứ điều gì quá phức tạp ở đây cả. Chúng ta chỉ lưu lại thời gian hiện lại, thực thi phương thức, sau đó in ra console khoảng thời gian đã tính toán được. Chúng ra cũng log cả tên của phương thức, api này được cung cấp bởi <code>joinpoint</code> instance. Ta cũng có thể truy cập được một tá các thông tin khác nếu muốn, ví dụ như các đối số của phương thức.</p>
+<p>Bây giờ, hãy thử đánh dấu một phương thức bằng <code>@LogExecutionTime</code>, và sau đó thực thi nó để xem điều gì sẽ xảy ra. Chú ý rằng, phương thức mà chúng ta muốn đánh dấu phải thuộc về một <strong>Spring bean</strong>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@LogExecutionTime</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">serve</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">2000</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Sau khi thực thi, ta sẽ thấy kết quả trên console như sau:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">void org.baeldung.Service.serve<span class="o">()</span> executed in 2030ms
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">dodangquan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-09-03
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:dodangquan@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">dodangquan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
