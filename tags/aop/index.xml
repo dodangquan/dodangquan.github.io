@@ -6,7 +6,7 @@
     <description>Recent content in aop on Đỗ Đăng Quân</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>vi</language>
-    <lastBuildDate>Thu, 26 Sep 2019 10:51:45 +0700</lastBuildDate>
+    <lastBuildDate>Thu, 28 Sep 2017 10:51:45 +0700</lastBuildDate>
     
 	<atom:link href="https://dodangquan.github.io/tags/aop/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Thực hiện tùy biến Spring AOP Annotation</title>
       <link>https://dodangquan.github.io/post/2017/09/customize-spring-aop-annotation/</link>
-      <pubDate>Thu, 26 Sep 2019 10:51:45 +0700</pubDate>
+      <pubDate>Thu, 28 Sep 2017 10:51:45 +0700</pubDate>
       
       <guid>https://dodangquan.github.io/post/2017/09/customize-spring-aop-annotation/</guid>
       <description>1. Annotation AOP là gì? Giới thiệu nhanh thì AOP là viết tắt của lập trình hướng khía cạnh (Aspect Oriented Programming), đây là kĩ thuật chèn thêm hành vi vào đoạn code đã tồn tại mà không cần phải sửa code trực tiếp.
