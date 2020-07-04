@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Tìm kiếm với Git - Đỗ Đăng Quân</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="dodangquan" /><meta name="description" content="Git là một công cụ quản lý phiên bản tuyệt vời, bạn sẽ không bao giờ &amp;ldquo;để lỡ&amp;rdquo; bất cứ điều gì với công cụ này. Tuy nhiên, đôi khi sẽ rất khó khăn trong việc tìm kiếm lại thông tin của những thứ bạn cần. Hầu hết, chúng ta sẽ sử dụng git log, nhưng sẽ không phải là cho tất cả mọi thứ.
+1. Tìm kiếm file Thỉnh thoảng, chúng ta biết chắc chắn là có một file cụ thể nào đó trong repository, nhưng lại không thể biết được chính xác vị trí của file đó nằm ở đâu." /><meta name="keywords" content="dodangquan, Do Dang Quan, Đỗ Đăng Quân, java, golang, spring, hibernate, gRPC, programming" />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.73.0 with theme even" />
+
+
+<link rel="canonical" href="https://dodangquan.github.io/post/2017/11/searching-by-git-log/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.2d8c555b844cbfa0081a5e83825ef97f9fc92cb514021af36ffc326bc63fcb34.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Tìm kiếm với Git" />
+<meta property="og:description" content="Git là một công cụ quản lý phiên bản tuyệt vời, bạn sẽ không bao giờ &ldquo;để lỡ&rdquo; bất cứ điều gì với công cụ này. Tuy nhiên, đôi khi sẽ rất khó khăn trong việc tìm kiếm lại thông tin của những thứ bạn cần. Hầu hết, chúng ta sẽ sử dụng git log, nhưng sẽ không phải là cho tất cả mọi thứ.
+1. Tìm kiếm file Thỉnh thoảng, chúng ta biết chắc chắn là có một file cụ thể nào đó trong repository, nhưng lại không thể biết được chính xác vị trí của file đó nằm ở đâu." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dodangquan.github.io/post/2017/11/searching-by-git-log/" />
+<meta property="article:published_time" content="2017-11-30T13:48:55+07:00" />
+<meta property="article:modified_time" content="2017-11-30T13:48:55+07:00" />
+<meta itemprop="name" content="Tìm kiếm với Git">
+<meta itemprop="description" content="Git là một công cụ quản lý phiên bản tuyệt vời, bạn sẽ không bao giờ &ldquo;để lỡ&rdquo; bất cứ điều gì với công cụ này. Tuy nhiên, đôi khi sẽ rất khó khăn trong việc tìm kiếm lại thông tin của những thứ bạn cần. Hầu hết, chúng ta sẽ sử dụng git log, nhưng sẽ không phải là cho tất cả mọi thứ.
+1. Tìm kiếm file Thỉnh thoảng, chúng ta biết chắc chắn là có một file cụ thể nào đó trong repository, nhưng lại không thể biết được chính xác vị trí của file đó nằm ở đâu.">
+<meta itemprop="datePublished" content="2017-11-30T13:48:55&#43;07:00" />
+<meta itemprop="dateModified" content="2017-11-30T13:48:55&#43;07:00" />
+<meta itemprop="wordCount" content="1376">
+
+
+
+<meta itemprop="keywords" content="git," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tìm kiếm với Git"/>
+<meta name="twitter:description" content="Git là một công cụ quản lý phiên bản tuyệt vời, bạn sẽ không bao giờ &ldquo;để lỡ&rdquo; bất cứ điều gì với công cụ này. Tuy nhiên, đôi khi sẽ rất khó khăn trong việc tìm kiếm lại thông tin của những thứ bạn cần. Hầu hết, chúng ta sẽ sử dụng git log, nhưng sẽ không phải là cho tất cả mọi thứ.
+1. Tìm kiếm file Thỉnh thoảng, chúng ta biết chắc chắn là có một file cụ thể nào đó trong repository, nhưng lại không thể biết được chính xác vị trí của file đó nằm ở đâu."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Programming</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Programming</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Tìm kiếm với Git</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-11-30 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-tìm-kiếm-file">1. Tìm kiếm file</a></li>
+    <li><a href="#2-tìm-những-file-có-từ-phù-hợp">2. Tìm những file có từ phù hợp</a></li>
+    <li><a href="#3-tìm-kiếm-người-đã-xóa-file">3. Tìm kiếm người đã xóa file</a></li>
+    <li><a href="#4-tìm-thời-gian-mà-file-được-thêm-vào">4. Tìm thời gian mà file được thêm vào</a></li>
+    <li><a href="#5-tìm-người-cuối-cùng-sửa-code">5. Tìm người cuối cùng sửa code</a></li>
+    <li><a href="#6-tìm-commit-có-chứa-chuỗi-kí-tự-chỉ-định">6. Tìm commit có chứa chuỗi kí tự chỉ định</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Git là một công cụ quản lý phiên bản tuyệt vời, bạn sẽ không bao giờ &ldquo;để lỡ&rdquo; bất cứ điều gì với công cụ này. Tuy nhiên, đôi khi sẽ rất khó khăn trong việc tìm kiếm lại thông tin của những thứ bạn cần. Hầu hết, chúng ta sẽ sử dụng <code>git log</code>, nhưng sẽ không phải là cho tất cả mọi thứ.</p>
+<h2 id="1-tìm-kiếm-file">1. Tìm kiếm file</h2>
+<p>Thỉnh thoảng, chúng ta biết chắc chắn là có một file cụ thể nào đó trong <strong>repository</strong>, nhưng lại không thể biết được chính xác vị trí của file đó nằm ở đâu. <code>git ls-files</code> là thứ mà chúng ta sẽ cần.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git ls-files <span class="p">|</span> grep security
+lib/dynamo-db/security.js
+test/security-test.js
+</code></pre></td></tr></table>
+</div>
+</div><p>Bạn có thể sử dụng bất kì tùy chọn cụ thể nào mà bạn thích của lệnh <code>grep</code>, ví dụ như <code>-i</code> để không biệt chữ hoa, chữ thường.</p>
+<h2 id="2-tìm-những-file-có-từ-phù-hợp">2. Tìm những file có từ phù hợp</h2>
+<p>Nếu bạn muốn tìm thông tin bên trong file thì bạn có thể sử dụng lệnh <code>git grep</code>. Lệnh <code>git grep</code> hoạt động tương tự lệnh grep đệ quy <code>grep -r .</code> trong <strong>linux</strong>, nhưng nó chỉ tìm kiếm những file được quản lí bởi <strong>git</strong>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Tìm tất cả những dòng phù hợp với pattern *crypt* trong version hiện tại</span>
+$ git grep <span class="s1">&#39;crypt&#39;</span>
+lib/dynamo-db/security.js:var <span class="nv">crypto</span> <span class="o">=</span> require<span class="o">(</span><span class="s1">&#39;crypto&#39;</span><span class="o">)</span><span class="p">;</span>
+lib/dynamo-db/security.js: var <span class="nv">hmac</span> <span class="o">=</span> crypto.createHmac<span class="o">(</span><span class="s1">&#39;sha256&#39;</span>, key<span class="o">)</span><span class="p">;</span>
+
+<span class="c1"># Thêm thông tin số dòng vào kết quả tìm được</span>
+$ git grep -n <span class="s1">&#39;crypt&#39;</span>
+lib/dynamo-db/security.js:2:var <span class="nv">crypto</span> <span class="o">=</span> require<span class="o">(</span><span class="s1">&#39;crypto&#39;</span><span class="o">)</span><span class="p">;</span>
+lib/dynamo-db/security.js:15: var <span class="nv">hmac</span> <span class="o">=</span> crypto.createHmac<span class="o">(</span><span class="s1">&#39;sha256&#39;</span>, key<span class="o">)</span><span class="p">;</span>
+
+<span class="c1"># Chỉ liệt kê tên file</span>
+$ git grep -l <span class="s1">&#39;crypt&#39;</span>
+lib/dynamo-db/security.js
+
+<span class="c1"># Liệt kê số lượng pattern xuất hiện trong file</span>
+$ git grep -c <span class="s1">&#39;crypt&#39;</span>
+lib/dynamo-db/security.js:2
+</code></pre></td></tr></table>
+</div>
+</div><p>Cũng có thể chỉ ra phiên bản để <code>grep</code> nhằm tìm ra những thay đổi giữa các phiên bản</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Tìm tất cả các file kèm với số dòng mà phù hợp với điều kiện tìm kiếm *type* trong các phiên bản `master` và `8f0fb7f`</span>
+$ git grep -l <span class="nb">type</span> master 8f0fb7f
+master:lib/dynamo-db/index.js
+master:lib/dynamo-db/security.js
+master:package.json
+8f0fb7f:lib/dynamo-db/index.js
+8f0fb7f:package.json
+</code></pre></td></tr></table>
+</div>
+</div><p>Git có thể kết hợp với hầu hết các lệnh cơ bản của Linux như <code>grep</code>, <code>find</code>, <code>ack</code>,&hellip; Nhưng Git là một công cụ quản lí phiên bản, vì vậy làm cách nào để ta có thể tìm kiếm những việc đã xảy ra trong quá khứ?</p>
+<h2 id="3-tìm-kiếm-người-đã-xóa-file">3. Tìm kiếm người đã xóa file</h2>
+<p>Giả sử, bạn đang làm việc trong một số dự án, và <em>&ldquo;gấu&rdquo;</em> của bạn bất ngờ bị ốm, bạn phải ở nhà làm việc để tiện chăm sóc cho <em>&ldquo;gấu&rdquo;</em>, khi công việc quay trở lại bình thường thì bạn nhận thấy đã có ai đó xóa file của bạn khỏi dự án. Bạn muốn biết ai đã làm việc đó. <code>git log</code> sẽ giúp bạn giải quyết được vấn đề này.</p>
+<p><code>git log</code> sẽ cho bạn thấy nội dung log của các commit. Đây là đôi mắt của bạn để nhìn được về quá khứ.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># File của tôi bị xóa khi nào?</span>
+$ git log --diff-filter<span class="o">=</span>D -- test/create-table-test.js
+commit ba6c4d8bc165b8fb8208979c3e5513bd53477d51
+Author: Nguyen Van A &lt;nguyen.van.a@example.com&gt;
+Date: Thu Nov <span class="m">30</span> 09:46:52 <span class="m">2017</span> +0700
+
+Removed the stupid failing test.
+</code></pre></td></tr></table>
+</div>
+</div><p>Có vẻ như chính bạn đã xóa file đó đi khi đang làm việc tại nhà và phải chăm sóc <em>&ldquo;gấu&rdquo;</em> đang bị ốm. Nhưng liệu thực sự file đó bị xóa trong commit này. Để xem thêm thông tin, hãy thêm tùy chọn <code>--summary</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Tìm thời gian và commit mà file bị xóa</span>
+$ git log --diff-filter<span class="o">=</span>D --summary -- test/create-table-test.js
+commit ba6c4d8bc165b8fb8208979c3e5513bd53477d51
+Author: Nguyen Van A &lt;nguyen.van.a@example.com&gt;
+Date: Thu Nov <span class="m">30</span> 09:46:52 <span class="m">2017</span> +0700
+
+Removed the stupid failing test.
+
+delete mode <span class="m">100644</span> test/create-table-test.js
+</code></pre></td></tr></table>
+</div>
+</div><p>Có vẻ như file đó đúng là do chính bạn đã xóa đi.</p>
+<p>Chúng ta cùng phân tích câu lệnh trên:</p>
+<ul>
+<li><code>test/create-table-test.js</code> - Đường dẫn tương đối đến file của bạn.</li>
+<li><code>--</code> - Sử dụng hai đấu gạch nối để báo cho Git biết đây không phải là một <code>branch</code> hoặc là một tùy chọn của một lệnh.</li>
+<li><code>--summary</code> - Cho bạn biết những file nào đã bị xóa hoặc thêm mới. Ta cũng có tùy chọn khác có chức năng tương tự <code>--name-status</code>.</li>
+<li><code>--diff-filter</code> - Giới hạn log bằng việc chỉ định loại thay đổi, trong trường hợp này là <code>D</code> nghĩa là Deleted. Các tùy chọn khác gồm có: Added (A), Coppied (C), Modified (M) và Renamed (R).</li>
+</ul>
+<h2 id="4-tìm-thời-gian-mà-file-được-thêm-vào">4. Tìm thời gian mà file được thêm vào</h2>
+<p>Cách thực hiện tương tự với kĩ thuật bên trên, nhưng tôi sẽ thay đổi nó vì không muốn gõ đường dẫn đầy đủ của file</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Tìm thời gian mà các file integration test được thêm vào.</span>
+$ git log --diff-filter<span class="o">=</span>A --name-status <span class="p">|</span> grep -C <span class="m">6</span> <span class="s1">&#39;integ&#39;</span>
+commit 09420cfea8c7b569cd47f690104750fec358a10a
+Author: Nguyen Van A &lt;nguyen.van.a@example.com&gt;
+Date: Thu Nov <span class="m">30</span> 09:46:52 <span class="m">2017</span> +0700
+
+Extracted integration <span class="nb">test</span>
+
+A	integration-test/sts-test.js
+
+commit 205db3965dec6c2c4c7b2bb75387a591d49e1951
+Author: Nguyen Van A &lt;nguyen.van.a@example.com&gt;
+Date: Thu Nov <span class="m">30</span> 09:46:52 <span class="m">2017</span> +0700
+</code></pre></td></tr></table>
+</div>
+</div><p>Như các bạn có thể thấy, ở đây tôi đang sử dụng tùy chọn <code>--name-status</code> làm biến thể của <code>--summary</code>.</p>
+<p>Tôi sử dụng lệnh <code>grep -C 6</code> để lấy ra bối cảnh xung quanh các yếu tố được tìm thấy, trong trường hợp này sẽ là sáu dòng trước và sau dòng có nội dung thỏa mãn với điều kiện tìm kiếm.</p>
+<h2 id="5-tìm-người-cuối-cùng-sửa-code">5. Tìm người cuối cùng sửa code</h2>
+<p>Để xem thông tin người cuối cùng tác động đến một dòng code của một file, bạn có thể dùng đến lệnh <code>git blame</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git blame test/security-test.js
+205db396 <span class="o">(</span>Nguyen Van B 2017-11-21 10:03:59 +0700  1<span class="o">)</span> var <span class="nv">vows</span> <span class="o">=</span> require<span class="o">(</span><span class="s1">&#39;vows&#39;</span><span class="o">)</span>,
+205db396 <span class="o">(</span>Nguyen Van B 2017-11-21 10:03:59 +0700  2<span class="o">)</span>     <span class="nv">assert</span> <span class="o">=</span> require<span class="o">(</span><span class="s1">&#39;assert&#39;</span><span class="o">)</span><span class="p">;</span>
+205db396 <span class="o">(</span>Nguyen Van B 2017-11-21 10:03:59 +0700  3<span class="o">)</span> 
+09420cfe <span class="o">(</span>Nguyen Van B 2017-11-24 16:23:52 +0700  4<span class="o">)</span> var <span class="nv">access</span> <span class="o">=</span> <span class="s1">&#39;access&#39;</span><span class="p">;</span>
+09420cfe <span class="o">(</span>Nguyen Van B 2017-11-24 16:23:52 +0700  5<span class="o">)</span> var <span class="nv">secret</span> <span class="o">=</span> <span class="s1">&#39;secret&#39;</span><span class="p">;</span>
+90b65208 <span class="o">(</span>Nguyen Van B 2017-11-21 11:58:21 +0700  6<span class="o">)</span> 
+205db396 <span class="o">(</span>Nguyen Van B 2017-11-21 10:03:59 +0700  7<span class="o">)</span> var <span class="nv">security</span> <span class="o">=</span> new Security<span class="o">({</span>
+90b65208 <span class="o">(</span>Nguyen Van B 2017-11-21 11:58:21 +0700  8<span class="o">)</span>   access: access,
+90b65208 <span class="o">(</span>Nguyen Van B 2017-11-21 11:58:21 +0700  9<span class="o">)</span>   secret: secret
+205db396 <span class="o">(</span>Nguyen Van B 2017-11-21 10:03:59 +0700 10<span class="o">)</span> <span class="o">})</span><span class="p">;</span>
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>Như bạn thấy, mỗi dòng đều được đánh dấu bởi commit mới nhất đã tác động đến nó và tác giả của commit đó.</p>
+<h2 id="6-tìm-commit-có-chứa-chuỗi-kí-tự-chỉ-định">6. Tìm commit có chứa chuỗi kí tự chỉ định</h2>
+<p>Ta có thể tìm được những commit đã xóa bỏ hoặc thêm mới một chuỗi kí tự bằng cách sử dụng lệnh <code>git log -S&lt;string&gt;</code> hoặc <code>git log -G&lt;regex&gt;</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Tìm những commit có thay đổi chuỗi &#39;aws&#39; và hiển thị tất cả thay đổi trong những commit đó.</span>
+$ git log -Saws --diff-filter<span class="o">=</span>M --patch
+commit b96c68b839f204b310b79570bc3d27dc93cff588
+Author: Anders Janmyr &lt;anders@janmyr.com&gt;
+Date:   Sat Jan <span class="m">21</span> 12:33:50 <span class="m">2012</span> +0100
+
+    We have a valid request, tjohoo
+
+diff --git a/lib/dynamo-db/security.js b/lib/dynamo-db/security.js
+index bee6936..8471527 <span class="m">100644</span>
+--- a/lib/dynamo-db/security.js
++++ b/lib/dynamo-db/security.js
+@@ -2,6 +2,7 @@
+ var <span class="nv">crypto</span> <span class="o">=</span> require<span class="o">(</span><span class="s1">&#39;crypto&#39;</span><span class="o">)</span><span class="p">;</span>
+ var <span class="nv">_</span> <span class="o">=</span> require<span class="o">(</span><span class="s1">&#39;underscore&#39;</span><span class="o">)</span><span class="p">;</span>
+ var <span class="nv">request</span> <span class="o">=</span> require<span class="o">(</span><span class="s2">&#34;request&#34;</span><span class="o">)</span><span class="p">;</span>
++var <span class="nv">xml2js</span> <span class="o">=</span> require<span class="o">(</span><span class="s1">&#39;xml2js&#39;</span><span class="o">)</span><span class="p">;</span>
+ 
+ <span class="k">function</span> Security<span class="o">(</span>options<span class="o">)</span> <span class="o">{</span>
+   this.options <span class="o">=</span> options<span class="p">;</span>
+@@ -23,7 +24,7 @@ mod.timestamp <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+ mod.defaultParams <span class="o">=</span> <span class="k">function</span><span class="o">()</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="o">{</span>
+     AWSAccessKeyId: this.options.access,
+-    Version: <span class="s1">&#39;2010-05-08&#39;</span>,
++    Version: <span class="s1">&#39;2011-06-15&#39;</span>,
+     Timestamp: this.timestamp<span class="o">()</span>,
+     SignatureVersion: 2,
+     SignatureMethod: <span class="s1">&#39;HmacSHA256&#39;</span>
+@@ -57,9 +58,10 @@ mod.url <span class="o">=</span> <span class="k">function</span><span class="o">(</span>host, path, params<span class="o">)</span> <span class="o">{</span>
+ 
+ mod.makeRequest <span class="o">=</span> <span class="k">function</span><span class="o">(</span>method, host, path, params, callback<span class="o">)</span> <span class="o">{</span>
+   var <span class="nv">extParams</span> <span class="o">=</span> _.extend<span class="o">({}</span>, this.defaultParams<span class="o">()</span>, params<span class="o">)</span><span class="p">;</span>
+-  var <span class="nv">signedParams</span> <span class="o">=</span> this.signedParams<span class="o">(</span><span class="s1">&#39;GET&#39;</span>, <span class="s1">&#39;iam.amazonaws.com&#39;</span>, <span class="s1">&#39;/&#39;</span>, extParams<span class="o">)</span><span class="p">;</span>
+-  console.log<span class="o">(</span>extParams,signedParams<span class="o">)</span><span class="p">;</span>
+-  <span class="k">return</span> request<span class="o">({</span> method: method, url: this.url<span class="o">(</span>host, path, signedParams<span class="o">)</span> <span class="o">}</span>,
++  var <span class="nv">signedParams</span> <span class="o">=</span> this.signedParams<span class="o">(</span>method, host, path, extParams<span class="o">)</span><span class="p">;</span>
++  var <span class="nv">url</span> <span class="o">=</span> this.url<span class="o">(</span>host, path, signedParams<span class="o">)</span><span class="p">;</span>
++  console.log<span class="o">(</span>url,signedParams<span class="o">)</span><span class="p">;</span>
++  <span class="k">return</span> request<span class="o">({</span> method: method, url: url <span class="o">}</span>,
+...
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">dodangquan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2017-11-30
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/git/">git</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2017/09/customize-spring-aop-annotation/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Thực hiện tùy biến Spring AOP Annotation</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/2016/04/enable-icons-menu-linux/">
+            <span class="next-text nav-default">Enable Icons Menus Trong Hệ Điều Hành Linux</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:dangquanzt@gmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://dodangquan.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">dodangquan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on Đỗ Đăng Quân</title>
+    <link>https://dodangquan.github.io/tags/git/</link>
+    <description>Recent content in git on Đỗ Đăng Quân</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>vi</language>
+    <lastBuildDate>Thu, 30 Nov 2017 13:48:55 +0700</lastBuildDate>
+    
+	<atom:link href="https://dodangquan.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tìm kiếm với Git</title>
+      <link>https://dodangquan.github.io/post/2017/11/searching-by-git-log/</link>
+      <pubDate>Thu, 30 Nov 2017 13:48:55 +0700</pubDate>
+      
+      <guid>https://dodangquan.github.io/post/2017/11/searching-by-git-log/</guid>
+      <description>Git là một công cụ quản lý phiên bản tuyệt vời, bạn sẽ không bao giờ &amp;ldquo;để lỡ&amp;rdquo; bất cứ điều gì với công cụ này. Tuy nhiên, đôi khi sẽ rất khó khăn trong việc tìm kiếm lại thông tin của những thứ bạn cần. Hầu hết, chúng ta sẽ sử dụng git log, nhưng sẽ không phải là cho tất cả mọi thứ.
+1. Tìm kiếm file Thỉnh thoảng, chúng ta biết chắc chắn là có một file cụ thể nào đó trong repository, nhưng lại không thể biết được chính xác vị trí của file đó nằm ở đâu.</description>
+    </item>
+    
+  </channel>
+</rss>

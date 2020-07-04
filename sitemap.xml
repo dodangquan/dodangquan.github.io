@@ -51,6 +51,20 @@
   </url>
   
   <url>
+    <loc>https://dodangquan.github.io/tags/git/</loc>
+    <lastmod>2017-11-30T13:48:55+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://dodangquan.github.io/post/2017/11/searching-by-git-log/</loc>
+    <lastmod>2017-11-30T13:48:55+07:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://dodangquan.github.io/post/2016/04/enable-icons-menu-linux/</loc>
     <lastmod>2016-04-02T22:53:38+07:00</lastmod>
     <changefreq>weekly</changefreq>
